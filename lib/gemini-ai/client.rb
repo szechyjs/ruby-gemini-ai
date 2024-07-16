@@ -53,6 +53,15 @@ module GeminiAi
       json_post(path: path, parameters: payload, &callback)
     end
 
+    def create_context_cache(contents, model: nil, &callback)
+      path = "https://#{@region}-aiplatform.googleapis.com/v1beta1/projects/#{@project_id}/locations/#{@region}/cachedContents"
+      payload = {
+        model: "projects/#{@project_id}/locations/#{@region}/publishers/google/models/#{model}",
+        contents: contents
+      }
+      json_post(path: path, parameters: payload, &callback)
+    end
+
     private
 
     def build_request_url(path, model, stream)
